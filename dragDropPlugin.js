@@ -12,7 +12,7 @@ function handleDrop(e) {
     var files = e.dataTransfer.files;
     for (var i = 0, len = files.length; i < len; i++) {
         if (files[i]) {
-	      previewAnduploadFile(files[i]);
+	    previewAnduploadFile(files[i]);
 	} else {
 	    window.toastr.error("Failed to load file");
 	}
@@ -23,10 +23,10 @@ function previewAnduploadFile(file) {
     var r = new FileReader();
     r.onload = function(e) {
         var contents = e.target.result;
-	      createEditor();
-	      $('#tab-' + window.current_editor).text(file.name);
-	      var editor = window.ace.edit(window.current_editor);
-	      editor.getSession().setValue(contents);
+	    createEditor();
+	    $('#tab-' + window.current_editor).text(file.name);
+	    var editor = window.ace.edit(window.current_editor);
+	    editor.getSession().setValue(contents);
     }
     r.readAsText(file);
 }
@@ -44,24 +44,23 @@ define(function () {
 
         initialize: function() {
             // Check for the various File API support.
-	          if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
-		            window.toastr.error('The File APIs are not fully supported by your browser.');
-		            return;
-	           }
-	           dropRegion.addEventListener('dragenter', preventDefault, false);
-	           dropRegion.addEventListener('dragleave', preventDefault, false);
-	           dropRegion.addEventListener('dragover', preventDefault, false);
-	           dropRegion.addEventListener('drop', handleDrop, false);
-
+	    if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+	        window.toastr.error('The File APIs are not fully supported by your browser.');
+		return;
+	    }
+		
+	    dropRegion.addEventListener('dragenter', preventDefault, false);
+	    dropRegion.addEventListener('dragleave', preventDefault, false);
+	    dropRegion.addEventListener('dragover', preventDefault, false);
+	    dropRegion.addEventListener('drop', handleDrop, false);
         },
 
         disable: function() { 
-	          dropRegion.removeEventListener('dragenter', preventDefault, false);
-	          dropRegion.removeEventListener('dragleave', preventDefault, false);
-	          dropRegion.removeEventListener('dragover', preventDefault, false);
-	          dropRegion.removeEventListener('drop', handleDrop, false);
-
-	      },
+	    dropRegion.removeEventListener('dragenter', preventDefault, false);
+	    dropRegion.removeEventListener('dragleave', preventDefault, false);
+	    dropRegion.removeEventListener('dragover', preventDefault, false);
+	    dropRegion.removeEventListener('drop', handleDrop, false);
+	},
 
         save: function() {
             return {};
